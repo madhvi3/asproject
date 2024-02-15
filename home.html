@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bon Voyage Tours - Explore the World</title>
+  <style>
+    body {
+      background-color: #f0f0f0;
+      font-family: 'Arial', sans-serif;
+      color: #333;
+      text-align: center;
+      padding: 50px;
+      margin: 0;
+      background-image: url('https://i.pinimg.com/564x/dd/21/c4/dd21c421ff216796126e4d7abc0ac010.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      font-size: 36px;
+    }
+
+    #package-container {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .package {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin: 10px;
+      padding: 10px;
+      max-width: calc(33.33% - 20px);
+      box-sizing: border-box;
+      background-color: #fff;
+    }
+
+    .package img {
+      max-width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .thanks-box {
+      color: #fff;
+      font-size: 24px;
+      margin-top: 20px;
+      background-color: #333;
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    .cart-message {
+      color: #fff;
+      display: none;
+      font-size: 18px;
+      margin-top: 20px;
+      background-color: #333;
+      padding: 20px;
+      border-radius: 8px;
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Bon Voyage Tours - Discover Your Dream Destinations</h1>
+
+  <!-- Package Containers - First Row -->
+  <div id="package-container">
+    <!-- Country 1 -->
+    <div class="package" onclick="showDetails('PARIS', 'Duration: 5 Days / 4 Nights<br>Tourist Attractions: Eiffel Tower, Louvre Museum, Notre-Dame Cathedral', 300000)">
+      <img src="https://cdn.pixabay.com/photo/2018/04/25/09/26/eiffel-tower-3349075_640.jpg">
+      <h2>PARIS</h2>
+      <p>Explore the charm of Paris with our exclusive package</p>
+      <p>Price: ₹300,000 per person</p>
+      <button onclick="addToCart('PARIS', 300000)">Add to Cart</button>
+    </div>
+
+    <!-- Country 2 -->
+    <div class="package" onclick="showDetails('GOA', 'Duration: 6 Days / 5 Nights<br>Tourist Attractions: Beaches, Dudhsagar Waterfalls, Fort Aguada', 19999)">
+      <img src="https://t3.ftcdn.net/jpg/01/40/51/56/360_F_140515612_0MMpqpsIvs6xno5YXmPVy9FUmZ4uLnFB.jpg">
+      <h2>GOA</h2>
+      <p>Explore the charm of Goa with our exclusive package</p>
+      <p>Price: ₹19,999 per person</p>
+      <button onclick="addToCart('GOA', 19999)">Add to Cart</button>
+    </div>
+
+    <!-- Country 3 -->
+    <div class="package" onclick="showDetails('HONG KONG', 'Duration: 7 Days / 6 Nights<br>Tourist Attractions: Victoria Harbour, Disneyland, Ngong Ping 360', 404999)">
+      <img src="https://static.toiimg.com/thumb/width-600,height-400,msid-35113216.cms">
+      <h2>HONG KONG</h2>
+      <p>Explore the charm of Hong Kong with our exclusive package</p>
+      <p>Price: ₹404,999 per person</p>
+      <button onclick="addToCart('HONG KONG', 404999)">Add to Cart</button>
+    </div>
+
+    <!-- Country 4 -->
+    <div class="package" onclick="showDetails('LONDON', 'Duration: 8 Days / 7 Nights<br>Tourist Attractions: Big Ben, British Museum, Tower of London', 99999)">
+      <img src="https://media.istockphoto.com/id/1294454411/photo/london-symbols-with-big-ben-double-decker-buses-and-red-phone-booth-in-england-uk.webp?b=1&s=170667a&w=0&k=20&c=SR5FBt8VvpZEOIxZcTmoEf9XxU0oiSnbobD3E6ZB358=">
+      <h2>LONDON</h2>
+      <p>Explore the charm of London with our exclusive package</p>
+      <p>Price: ₹99,999 per person</p>
+      <button onclick="addToCart('LONDON', 99999)">Add to Cart</button>
+    </div>
+
+    <!-- Country 5 -->
+    <div class="package" onclick="showDetails('LAKSHADWEEP', 'Duration: 5 Days / 4 Nights<br>Tourist Attractions: Coral Reefs, Agatti Island, Lighthouse', 39000)">
+      <img src="https://media.istockphoto.com/id/1224360439/photo/waiting-to-sail.jpg?s=612x612&w=0&k=20&c=XMtw1nX67rhb75bYZ4D_39WNkuHTaddHDjtsxz-2IJY=">
+      <h2>LAKSHADWEEP</h2>
+      <p>Explore the charm of Lakshadweep with our exclusive package</p>
+      <p>Price: ₹39,000 per person</p>
+      <button onclick="addToCart('LAKSHADWEEP', 39000)">Add to Cart</button>
+    </div>
+
+    <!-- Country 6 -->
+    <div class="package" onclick="showDetails('RAJASTHAN', 'Duration: 6 Days / 5 Nights<br>Tourist Attractions: Jaipur, Jodhpur, Udaipur, City palace', 77777)">
+      <img src="https://t3.ftcdn.net/jpg/01/03/26/16/360_F_103261625_QzFHOqadSNB11mzCoOf41SoV95MUqE06.jpg" >
+      <h2>RAJASTHAN</h2>
+      <p>Explore the charm of Rajasthan with our exclusive package</p>
+      <p>Price: ₹77777 per person</p>
+      <button onclick="addToCart('RAJASTHAN', 77777)">Add to Cart</button>
+    </div>
+
+    <!-- Country 7 -->
+    <div class="package" onclick="showDetails('ROME', 'Duration: 7 Days / 6 Nights<br>Tourist Attractions: Colosseum, Vatican City, Trevi Fountain', 250000)">
+      <img src="https://media.istockphoto.com/id/1323460157/photo/rome-italy-night-city-skyline-at-rome-colosseum-empty-nobody.webp?b=1&s=170667a&w=0&k=20&c=XE9O_GYWrL_RaFZH0Gw5P3NAW_YL_BSVcbbq9rlLvXE=">
+      <h2>ROME</h2>
+      <p>Explore the charm of Rome with our exclusive package</p>
+      <p>Price: ₹250,000 per person</p>
+      <button onclick="addToCart('ROME', 250000)">Add to Cart</button>
+    </div>
+
+    <!-- Country 8 -->
+    <div class="package" onclick="showDetails('NEW YORK', 'Duration: 6 Days / 5 Nights<br>Tourist Attractions: Statue of Liberty, Times Square, Central Park', 350000)">
+      <img src="https://media.istockphoto.com/id/1277102943/photo/taxis-in-times-square-with-7th-avenue-new-york-city-manhattan.jpg?s=612x612&w=0&k=20&c=MYSShgQK5XOq4EunHxv91ArQMRTwMOqGndFBmcQdHa0=">
+      <h2>NEW YORK</h2>
+      <p>Explore the charm of New York with our exclusive package</p>
+      <p>Price: ₹350,000 per person</p>
+      <button onclick="addToCart('NEW YORK', 350000)">Add to Cart</button>
+    </div>
+
+    <!-- Country 9 -->
+    <div class="package" onclick="showDetails('SYDNEY', 'Duration: 8 Days / 7 Nights<br>Tourist Attractions: Sydney Opera House, Bondi Beach, Sydney Harbour Bridge', 450000)">
+      <img src="https://c4.wallpaperflare.com/wallpaper/188/326/574/rock-formation-landscape-photography-mono-lake-mono-lake-wallpaper-preview.jpg">
+      <h2>SYDNEY</h2>
+      <p>Explore the charm of Sydney with our exclusive package</p>
+      <p>Price: ₹450,000 per person</p>
+      <button onclick="addToCart('SYDNEY', 450000)">Add to Cart</button>
+    </div>
+
+    <!-- Country 10 -->
+    <div class="package" onclick="showDetails('KASHMIR', 'Duration: 7 Days / 6 Nights<br>Tourist Attractions: Srinagar , Gulmarg, DalLake', 55000)">
+      <img src="https://media.istockphoto.com/id/1323846766/photo/a-beautiful-view-of-dal-lake-in-winter-srinagar-kashmir-india.jpg?s=612x612&w=0&k=20&c=Dp3peie2t-jdLEmqe4W-DD09GACu2Cr-JjHHeB6rpBc=">
+      <h2>KASHMIR</h2>
+      <p>Explore the charm of Kashmir with our exclusive package</p>
+      <p>Price: ₹55000 per person</p>
+      <button onclick="addToCart('KASHMIR', 55000)">Add to Cart</button>
+    </div>
+
+    <!-- Country 11 -->
+    <div class="package" onclick="showDetails('SWITZERLAND', 'Duration: 6 Days / 5 Nights<br>Tourist Attractions: Rhine Falls, Chapel Bridge, Skydiving', 280000)">
+      <img src="https://w0.peakpx.com/wallpaper/179/795/HD-wallpaper-retreat-in-the-mountains-switzerland-snow-mountains-retreat-nature-switzerland-scenery-winter-landscape.jpg">
+      <h2>SWITZERLAND</h2>
+      <p>Explore the charm of Switzerland with our exclusive package</p>
+      <p>Price: ₹280,000 per person</p>
+      <button onclick="addToCart('SWITZERLAND', 280000)">Add to Cart</button>
+    </div>
+
+    <!-- Country 12 -->
+    <div class="package" onclick="showDetails('BANGKOK', 'Duration: 5 Days / 4 Nights<br>Tourist Attractions: Grand Palace, Wat Arun, Chatuchak Weekend Market', 120000)">
+      <img src="https://img.freepik.com/free-photo/wat-arun-temple-twilight-bangkok-thailand_335224-772.jpg">
+      <h2>BANGKOK</h2>
+      <p>Explore the charm of Bangkok with our exclusive package</p>
+      <p>Price: ₹120,000 per person</p>
+      <button onclick="addToCart('BANGKOK', 120000)">Add to Cart</button>
+    </div>
+
+    <!-- Country 13 -->
+    <div class="package" onclick="showDetails('SHIMLA', 'Duration: 7 Days / 6 Nights<br>Tourist Attractions: Christ Church, Jhaku Hill, Scandal Point', 28000)">
+      <img src="https://t3.ftcdn.net/jpg/04/09/57/16/360_F_409571615_KEsl0FOjDX23T805YsCUVqJyhjy6iRJt.jpg">
+      <h2>SHIMLA</h2>
+      <p>Explore the charm of Shimla with our exclusive package</p>
+      <p>Price: ₹280,00 per person</p>
+      <button onclick="addToCart('SHIMLA', 28000)">Add to Cart</button>
+    </div>
+
+    <!-- Country 14 -->
+    <div class="package" onclick="showDetails('GREECE', 'Duration: 6 Days / 5 Nights<br>Tourist Attractions: Oia, Fira, Akrotiri Archaeological Site', 320000)">
+      <img src="https://media.istockphoto.com/id/1145450965/photo/santorini-island-greece.jpg?s=612x612&w=0&k=20&c=AY_kxRrkTjbDLhqpotxgW8CZp4ovEIM1tRdTrvXKcAM=">
+      <h2>GREECE</h2>
+      <p>Explore the charm of Greece with our exclusive package</p>
+      <p>Price: ₹320,000 per person</p>
+      <button onclick="addToCart('GREECE', 320000)">Add to Cart</button>
+    </div>
+
+    <!-- Country 15 -->
+    <div class="package" onclick="showDetails('DUBAI', 'Duration: 5 Days / 4 Nights<br>Tourist Attractions: Burj Khalifa, Dubai Mall, Palm Jumeirah', 420000)">
+      <img src="https://media.istockphoto.com/id/1331100622/photo/view-of-buildings-streets-beautiful-in-various-angles-in-dubai.webp?b=1&s=170667a&w=0&k=20&c=tfDk1ntwNr3JsJROPkeSaNda1Pr_os9-mgkfShopmds=">
+      <h2>DUBAI</h2>
+      <p>Explore the charm of Dubai with our exclusive package</p>
+      <p>Price: ₹420,000 per person</p>
+      <button onclick="addToCart('DUBAI', 420000)">Add to Cart</button>
+    </div>
+  </div>
+
+
+ <div class="thanks-box">
+    Thank you for visiting us! Contact us at <a href="mailto:madhvichokda@gmail.com">madhvichokda@gmail.com</a>.
+  </div>
+  <!-- Notification Popup -->
+  <div class="cart-message" id="cart-message">
+    Trip to <span id="cart-destination"></span> added to cart successfully!
+  </div>
+
+  <!-- Details Modal -->
+  <div class="modal" id="details-modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeDetailsModal()">&times;</span>
+      <h2 id="details-destination"></h2>
+      <p id="details-info"></p>
+      <p id="details-price"></p>
+      <button onclick="addToCartDetails()">Add to Cart</button>
+    </div>
+  </div>
+
+  <script>
+    function showDetails(destination, info, price) {
+      document.getElementById('details-destination').innerHTML = destination;
+      document.getElementById('details-info').innerHTML = info;
+      document.getElementById('details-price').innerHTML = 'Price: ₹' + price.toLocaleString() + ' per person';
+      document.getElementById('details-modal').style.display = 'block';
+    }
+
+    function closeDetailsModal() {
+      document.getElementById('details-modal').style.display = 'none';
+    }
+
+    function addToCart(destination, price) {
+      document.getElementById('cart-destination').innerHTML = destination;
+      document.getElementById('cart-message').style.display = 'block';
+    }
+
+    function addToCartDetails() {
+      var destination = document.getElementById('details-destination').innerHTML;
+      var price = document.getElementById('details-price').innerHTML;
+      addToCart(destination, price);
+      closeDetailsModal();
+    }
+  </script>
+</body>
+
+</html>
