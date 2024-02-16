@@ -7,7 +7,7 @@
   <title>Bon Voyage - Login</title>
   <style>
     body {
-      background-image: url('https://www.hdwallpapers.in/download/china_lake_pagoda_mountains_autumn_trees_scenery_reflection_hd_travel-1920x1080.jpg');
+      background-image: url('login.jpg');
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-size: cover;
@@ -101,13 +101,14 @@
     <h2 class="black-text">Login to Bon Voyage Tours</h2>
 
     <form id="MainForm">
-      <input type="text" id="email" name="email_mobile" placeholder="Email or Mobile Number" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
+      <input type="text" id="email" name="email_mobile" placeholder="Email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required>
       <input type="password" id="password" name="password" placeholder="Password" required>
-      <button type="submit">Login</button>
+      <button type="submit" onclick = "MainForm.checkValidity()" >Login</button>
       <div id="home-link-container"></div>
       <a href="bonvoyage.html" id="return-registration" class="black-text"> Return to Registration Page</a>
     </form>
   </div>
+  
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -134,37 +135,46 @@
     let Password = document.getElementById('password');
     let MainForm = document.getElementById('MainForm');
 
-    let SignInUser = evt => {
-      evt.preventDefault();
+     let login = () => {
+  window.location.href = 'home.html';
+};
 
-      signInWithEmailAndPassword(auth, Email.value, Password.value)
-        .then((credentials) => {
-          const userRef = child(dbref, 'UserAuthList/' + credentials.user.uid);
-          get(userRef).then((snapshot) => {
-            if (snapshot.exists) {
-              sessionStorage.setItem("user-info", JSON.stringify({
-                Name: snapshot.val().Name,
-                age: snapshot.val().Age,
-                mobile: snapshot.val().Mobile
-              }));
-              sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
+let SignInUser = evt => {
+  evt.preventDefault();
 
-              const homeLinkContainer = document.getElementById('return-registration');
-              homeLinkContainer.innerHTML = '<a href="home.html" id="return-home" class="black-text"> Continue to Home Page</a>';
+  if (MainForm.checkValidity()) {
+    signInWithEmailAndPassword(auth, Email.value, Password.value)
+      .then((credentials) => {
+        const userRef = child(dbref, 'UserAuthList/' + credentials.user.uid);
+        get(userRef).then((snapshot) => {
+          if (snapshot.exists) {
+            sessionStorage.setItem("user-info", JSON.stringify({
+              Name: snapshot.val().Name,
+              age: snapshot.val().Age,
+              mobile: snapshot.val().Mobile
+            }));
+            sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
 
-            } else {
-              alert("User not registered");
-            }
-          });
-        })
-        .catch((error) => {
-          alert("Incorrect email/password");
-          console.log(error.code);
-          console.log(error.message);
+            // Call the login function
+            login();
+
+          } else {
+            alert("User not registered");
+          }
         });
-    }
+      })
+      .catch((error) => {
+        alert("Incorrect email/password");
+        console.log(error.code);
+        console.log(error.message);
+      });
+  } else {
+    alert("Please fill in all fields with valid data.");
+  }
+}
 
-    MainForm.addEventListener('submit', SignInUser);
+MainForm.addEventListener('submit', SignInUser);
+
   </script>
 </body>
 

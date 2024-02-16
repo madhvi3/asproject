@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bon Voyage Tours - Explore the World</title>
+  <title>Bon Voyage Tours</title>
   <style>
     body {
       background-color: #f0f0f0;
@@ -101,10 +101,24 @@
       right: 10px;
       cursor: pointer;
     }
+
+   #logout-button {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
   </style>
 </head>
 
 <body>
+  <button id="logout-button" onclick="logout()">Logout</button>
   <h1>Bon Voyage Tours - Discover Your Dream Destinations</h1>
 
   <!-- Package Containers - First Row -->
@@ -288,6 +302,11 @@
       addToCart(destination, price);
       closeDetailsModal();
     }
+
+    function logout() {
+      window.location.href = 'login.html';
+    }
+
   </script>
 </body>
 
